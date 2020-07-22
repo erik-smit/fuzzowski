@@ -19,17 +19,17 @@ class IPMIFuzzer(IFuzzer):
         it is called when loading a fuzzer
         """
         s_initialize('rmcp_ping')
-        s_static(b'\x06', name='version')
-        s_static(b'\x00', name='reserved1')
-        s_static(b'\xff', name='sequence_number')
-        s_static(b'\x06', name='class_of_message')
-        s_static(b'\x00\x00', name='unknown')
-        s_static(b'\x11\xbe', name='iana_number')
-        s_static(b'\x80', name='message_type')
-        s_static(b'\x00', name='message_tag')
-        s_static(b'\x00', name='reserved2')
-        s_static(b'\x00', name='data_length')
-        s_delim(b'\x00')
+        with s_block("header"):
+            s_static(b'\x06', name='version')
+            s_byte(b'\x00', name='reserved1')
+            s_static(b'\xff', name='sequence_number')
+            s_static(b'\x06', name='class_of_message')
+            s_static(b'\x00\x00', name='unknown')
+            s_static(b'\x11\xbe', name='iana_number')
+            s_static(b'\x80', name='message_type')
+            s_static(b'\x00', name='message_tag')
+            s_static(b'\x00', name='reserved2')
+            s_static(b'\x00', name='data_length')
 
     # ================================================================#
     # Callable methods to connect our requests to the session         #
